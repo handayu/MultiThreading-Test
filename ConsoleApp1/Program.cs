@@ -136,7 +136,7 @@ namespace ConsoleApp1
             for (int i = 0; i < 1; i++)
             {
                 Console.WriteLine("Do--2");
-                Debug.WriteLine("Do--2");
+                //Debug.WriteLine("Do--2");
                 //System.Threading.Thread.Sleep(8000);
             }
         }
@@ -154,7 +154,7 @@ namespace ConsoleApp1
             for (int i = 0; i < 1; i++)
             {
                 Console.WriteLine("Do--3");
-                Debug.WriteLine("Do--3");
+                //Debug.WriteLine("Do--3");
 
                 //System.Threading.Thread.Sleep(8000);
             }

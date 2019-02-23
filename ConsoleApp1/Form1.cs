@@ -37,8 +37,8 @@ namespace ConsoleApp1
             for (int i = 0; i < 10000; i++)
             {
                 //System.Threading.Thread.Sleep(1000);
-                this.richTextBox1.BeginInvoke(new Action(AppendTest));
-                //Debug.WriteLine("Windows Form Message:" + DateTime.Now.ToString());
+                //this.richTextBox1.BeginInvoke(new Action(AppendTest));
+                Debug.WriteLine("Windows Form Message:" + DateTime.Now.ToString());
 
             }
         }
@@ -51,7 +51,9 @@ namespace ConsoleApp1
         private void FormLoad(object sender, EventArgs e)
         {
             System.Threading.Thread t = new System.Threading.Thread(FuncStart);
-            //t.Start();
+            t.IsBackground = false;
+            t.Start();
+
 
             this.backgroundWorker1.RunWorkerAsync();
          
@@ -61,35 +63,22 @@ namespace ConsoleApp1
         {
             backgroundWorker1.WorkerReportsProgress = true;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                System.Threading.Thread.Sleep(500);
                 //this.richTextBox1.BeginInvoke(new Action(AppendTest));
-                Debug.WriteLine("BackGroungWorker:" + DateTime.Now.ToString());
+                //System.Threading.Thread.Sleep(1000);
+                Debug.WriteLine("BackGroungWorker Working!:" + i.ToString());
 
-                try
-                {
-                    this.backgroundWorker1.ReportProgress(1);
-                }
-                catch(Exception ex)
-                {
-                    Debug.WriteLine("ex :" + ex.Message);
-                }
+                if (i%133 == 0) this.backgroundWorker1.ReportProgress(i);
 
             }
-
-            Debug.WriteLine("BackGroungWorker is Over:" + DateTime.Now.ToString());
-
         }
 
         private void PrograssChanged(object sender, ProgressChangedEventArgs e)
         {
-            Debug.WriteLine("BackGroungWorker Changed!:" + DateTime.Now.ToString());
+            int args = e.ProgressPercentage;
 
-            for (int i = 0; i < 1000; i++)
-            {
-                AppendTest();
-            }
+            this.richTextBox1.AppendText("\n" + args.ToString());
         }
 
         private void WokerStoped(object sender, RunWorkerCompletedEventArgs e)
